@@ -1,4 +1,4 @@
-require("dotenv").config;
+require("dotenv").config();
 const { application } = require("express");
 const express = require("express");
 
@@ -23,5 +23,6 @@ app.get("/health", (req, res) =>{
 })
 
 app.listen(port, () =>{
+    syncTables();
     console.log(`port is listening on ${port}`)
 })
