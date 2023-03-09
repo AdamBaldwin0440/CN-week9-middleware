@@ -13,9 +13,10 @@ const registerUser= async (req, res) => {
 
 const login = async (req, res) => {
     try {
+        const token = await jwt.sign({id: req.user.id}, process.env.SECRET_KEY);
         res.status(202).json({
             message: "successful",
-            user: {username: req.user.username, email: req.user.email},
+            user: {username: req.user.username, email: req.user.email, token: token},
         })
     } catch (error) {
         res.status(501).json({ errorMessage: error.message, error: error });
@@ -31,7 +32,7 @@ const getAllUsers = async (req, res) => {
         }
         const users = await User.findAll();
         for (let user of users) {
-            user.password = "***";
+            user.password = "";
         }
     } catch (error){
         res.status(501).json({ errorMessage: error.message, error: error });

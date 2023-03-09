@@ -45,8 +45,10 @@ const comparePass = async (req, res, next) => {
 }
 
 const tokenCheck = async (req, res, next) => {
+    console.log(req)
     try{
         const token = req.header("Authentication");
+        console.log(token);
         const decodedToken = await jwt.verify(token, process.env.SECRET_KEY);
         const user = await User.findOne({where: {id: decodedToken.id}});
 
